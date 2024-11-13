@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>
+        我的Mac工作流 - YinMo19's Blog 
+    </title>
+     
+    
+<link rel="stylesheet" href="/css/grid.css">
+
+    
+<link rel="stylesheet" href="/css/custom.css">
+
+    
+<link rel="stylesheet" href="/css/ringo.css">
+
+     
+        <link rel="icon" type="image/x-icon" href="/img/favicon.ico " />
+     
+     
+     
+        <meta name=" " content="" />
+     
+        <meta name=" " content="" />
+     
+ 
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header id="header" class="clearfix" onclick="window.open('/', '_self')">
+    <div class="site-name">
+        <a href="/" id="logo" class="site-title">
+            YinMo19&#39;s Blog
+        </a>
+        <p class="description site-description">
+            <span style="padding-top:20px; font-size: 10px">
+                
+            </span>
+        </p>
+    </div>
+</header>
+<div id="sidebar" role="complementary">
+    <section class="widget">
+        <ul class="menu widget-list">
+            
+        </ul>
+    </section>
+    <section class="widget sidebar-foot">
+        <ul class="widget-list">
+            <li>Theme <a rel="nofollow" target="_blank" href="https://github.com/HeliumOI/hexo-theme-ringo">Ringo</a>
+                by <a target="_blank" href="/ "> YinMo19  </a></li>
+            <li>Proudly powered by  <a rel="nofollow" target="_blank" href="https://hexo.io/">Hexo</a></li>
+        </ul>
+    </section>
+</div>
+
+<div id="helpbar">
+    <div class="back-to-top">
+        <button id="back2top">↑</button>
+        <script>
+            back2top.onclick = function() {
+                var movement = document.body.scrollTop || document.documentElement.scrollTop;
+                scrollBy(0, -movement);
+            }
+        </script>
+    </div>
+</div>
+      <main class="main">
+        <div id="body">
+          <div class="container">
+            <div class="col-12" id="main" role="main">
+    <article class="post post-atpost" itemscope itemtype="http://schema.org/BlogPosting">
+        <div class="post-title">
+            <h1 class="post-title post-title-atpage" itemprop="name headline">
+                <a itemprop="url" href="/2024/09/04/%E6%88%91%E7%9A%84Mac%E5%B7%A5%E4%BD%9C%E6%B5%81/">
+                    我的Mac工作流
+                </a>
+            </h1>
+        </div>
+        <ul class="post-meta post-meta-atpage">
+            <li class="post-time">
+                2024-09-04
+            </li>
+            <li>
+                <div class="article-category">
+                    
+                </div>
+            </li>
+        </ul>
+        <div class="post-content" itemprop="articleBody">
+            <p>说起来其实早些时候加入了 <a href="osa.moe">开源技术协会</a>，所以对 Linux 也算有了一些了解。后来在暑假拥有了一台 Mac，也算是类 Unix 系统，所以用起来在命令行上熟悉的很快，而且 Mac 的访达（相当于文件资源管理器）也非常方便，所以这里就写一篇简单介绍我的 Mac 的工作流。</p>
+<h1 id="一些有用的软件"><a href="#一些有用的软件" class="headerlink" title="一些有用的软件"></a>一些有用的软件</h1><p>拿到的第一件事其实是下载了 <code>MacTeX</code> ，也就是 <code>LaTeX</code> 的 Mac 版本。发觉 Mac 安装软件竟然如此简单，dmg 文件类似于 iso 镜像文件，会先挂载，然后我们在安装完成之后可以 unmount。但是有一些 dmg 文件已经做好了 ui 界面，只需要手动的同意同意就可以了。所以安装上没遇到任何困难。安装完成之后删除 dmg 文件，然后在命令行测试</p>
+<pre><code>➜  YinMo19_blog tex -v
+TeX 3.141592653 (TeX Live 2024)
+kpathsea version 6.4.0
+Copyright 2024 D.E. Knuth.
+There is NO warranty.  Redistribution of this software is
+covered by the terms of both the TeX copyright and
+the Lesser GNU General Public License.
+For more information about these matters, see the file
+named COPYING and the TeX source.
+Primary author of TeX: D.E. Knuth.
+➜  YinMo19_blog
+</code></pre><p><code>➜  YinMo19_blog</code> 是 Mac 的 <code>zsh</code> 命令行的命令提示符，表示当前目录为 <code>YinMo19_blog</code>。</p>
+<p>下一件事是安装 <code>python</code>，于是还是到官网下载 dmg 文件，然后点点点就可以了。稍微有一些难度的是接下来的包管理器。熟悉 Linux 就知道 Linux 安装软件依赖都是使用包管理工具来进行安装，例如 <code>apt,npm,yarn,pacman</code> 等等。Mac 使用的是 <code>homebrew</code> 。网上有很多教程，官网的方法可能有些慢，所以我选择清华镜像源。按照清华镜像源的帮助文档一步步跟着配就可以了。注意，<code>homebrew</code> 本体的下载也可以用镜像下载，清华源提供了方式，可以认真看一下。在下载完成之后配置镜像源可以在命令行中使用 <code>vim</code> 编辑 <code>~/.zshrc</code> 或者 <code>~/.zprofile</code>。</p>
+<p>这里关于命令行的 <code>zsh/bash</code> 是什么就不介绍了，可以自行查阅。<code>zsh</code> 可以配置 <code>oh-my-zsh</code> 来美化，具体内容可以在网络上查阅。</p>
+<h1 id="了解-Mac"><a href="#了解-Mac" class="headerlink" title="了解 Mac"></a>了解 Mac</h1><p>Mac 的访达非常好用。访达本身看上去是一个个文件夹，但是我们可以切换显示的方式。例如我很喜欢分栏<br><img src="QQ_1725422092264.png" alt="alt text"><br>例如上面的图片就是我此时写 blog 的目录。另外还有例如 gallary 的显示方式，用于看图非常合适。而配合命令行来对文件和各种文件进行管理。命令行可以做到几乎所有事情，例如我们想要在这个博客下面查找一个文件，我们可以先使用 <code>find</code> 命令来查找。他的使用和 <code>tldr</code> 文档在上一篇 blog 中已经介绍过了，所以我们这里就不再演示。</p>
+<p>更有意思的是，例如我们可以配合管道符和 <code>grep</code> 来查找文件和各种内容。例如 <code>cat</code> 可以把 file 的内容输出到命令行，然后我们将内容实用管道符传给 <code>grep</code> ，然后就可以查找到相关信息。 我最近使用 <code>minio</code> 来作为一个简单的服务器的存储方案，它需要在环境变量中获取账号密码的值。我们想要查看我们现在的账号密码的值只需要<br><img src="QQ_1725422441221.png" alt="alt text"><br>这样我们就可以轻松的看到之前设置的内容了。相似的，我们在查看ip地址的时候输入</p>
+<pre><code>➜  ~ ifconfig
+lo0: flags=8049&lt;UP,LOOPBACK,RUNNING,MULTICAST&gt; mtu 16384
+    options=1203&lt;RXCSUM,TXCSUM,TXSTATUS,SW_TIMESTAMP&gt;
+    inet 127.0.0.1 netmask 0xff000000
+    inet6 ::1 prefixlen 128 
+    inet6 fe80::1%lo0 prefixlen 64 scopeid 0x1 
+    nd6 options=201&lt;PERFORMNUD,DAD&gt;
+gif0: flags=8010&lt;POINTOPOINT,MULTICAST&gt; mtu 1280
+stf0: flags=0&lt;&gt; mtu 1280
+anpi1: flags=8863&lt;UP,BROADCAST,SMART,RUNNING,SIMPLEX,MULTICAST&gt; mtu 1500
+    options=400&lt;CHANNEL_IO&gt;
+    ether d2:5e:23:52:fb:4e
+    media: none
+    status: inactive
+...
+</code></pre><p>等等非常多的内容，现在只需要使用</p>
+<pre><code>➜  ~ ifconfig | rg 10 
+gif0: flags=8010&lt;POINTOPOINT,MULTICAST&gt; mtu 1280
+                maxage 0 holdcnt 0 proto stp maxaddr 100 timeout 1200
+        inet 10.250.155.82 netmask 0xffff0000 broadcast 10.250.255.255
+        inet6 fe80::106b:e1ff:fedc:c0b7%awdl0 prefixlen 64 scopeid 0xd 
+        inet6 fe80::106b:e1ff:fedc:c0b7%llw0 prefixlen 64 scopeid 0xe 
+        inet6 fe80::7aa:1193:a74b:77ec%utun1 prefixlen 64 scopeid 0x10 
+utun2: flags=8051&lt;UP,POINTOPOINT,RUNNING,MULTICAST&gt; mtu 1000
+        inet 100.99.118.11 --&gt; 100.99.118.11 netmask 0xffffffff
+➜  ~
+</code></pre><p><code>rg</code> 是 <code>ripgrep</code> 的缩写，是一个 <code>grep</code> 的可替代工具。</p>
+<h1 id="个人网盘"><a href="#个人网盘" class="headerlink" title="个人网盘"></a>个人网盘</h1><p>因为现在有很多设备，因此我需要在几台机子上传输数据。因此现在我在 mac 上面部署了一个 <code>alist</code> 服务，可以快速访问。<br><img src="QQ_1728118934843.png" alt="alt text"><br>部署的细节这里就不描述了。我购买了一个域名 <code>yinmo19.top</code>，分别用 <code>file.yinmo19.top</code> 和 <code>cloud.yinmo19.top</code> 绑定了我的 ipv4 和 ipv6 地址。但是默认端口是 5244，因此使用 <code>nginx</code> 将 5244 重定向到 80。这样我们就不需要使用端口号来访问。（80端口是默认的http端口） </p>
+<hr>
+<h2 id="可以介绍的，暂时咕咕不想写的"><a href="#可以介绍的，暂时咕咕不想写的" class="headerlink" title="可以介绍的，暂时咕咕不想写的"></a>可以介绍的，暂时咕咕不想写的</h2><p><code>mediamtx</code>: 用于将 rtsp 流转成 http 流传输，方便在 <code>obs</code> 中直接通过网络直播的 CLI。</p>
+<p><code>git-delta</code>: 看 <code>diff</code> 小工具。</p>
+<p>太多了，so….. TOBE CONTINUED~</p>
+
+             
+                <blockquote>
+                    <p>文章作者：<a href="/ "> YinMo19  </a></p>
+                    <p>文章链接：<a href="https://blog.yinmo19.top/2024/09/04/%E6%88%91%E7%9A%84Mac%E5%B7%A5%E4%BD%9C%E6%B5%81/"> https://blog.yinmo19.top/2024/09/04/%E6%88%91%E7%9A%84Mac%E5%B7%A5%E4%BD%9C%E6%B5%81/ </a></p>
+                    <p>版权声明：除另有声明外，本博客文章均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"> CC BY-NC-SA 4.0 </a> 许可协议。转载请注明原作者与文章出处。</p>
+                </blockquote>
+             
+        </div>
+        
+    </article>
+    <div class="post-near">
+    <div class="post-near-child post-near-child-left "> 
+        
+            <a href="/2024/09/02/Arcaea-%E5%B0%8F%E8%B4%B4%E5%9B%BE/">Arcaea 小贴图 &laquo; </a>
+        
+        <br /> Prev  &laquo;
+    </div>
+    <div class="post-near-child post-near-child-right">
+        
+            <a href="/2024/11/13/Arcaea-API-%E5%9C%B0%E5%9D%80%E9%80%86%E5%90%91/"> &raquo; Arcaea API 地址逆向</a>
+        
+        <br /> &raquo; Next 
+    </div>
+</div>
+</div>
+             
+<div id="comments">
+     
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: 'Ov23liJizeKP8Am1RBq3',
+        clientSecret: '050cc11a1042b6fb2967548b2638fd54443eef10',
+        id: window.location.pathname,
+        repo: 'YinMo19_comments',
+        owner: 'YinMo19',
+        admin: 'YinMo19'
+    })
+    gitalk.render('gitalk-container')
+</script>
+     
+</div>
+ 
+            <footer id="footer" role="contentinfo">
+    
+        &copy; 2020 - 2024
+        <br />
+    
+    
+    <br />
+    
+    
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+        <span id="busuanzi_value_site_pv">......</span> visits ·
+        <span id="busuanzi_value_site_uv">......</span> visitors 
+    
+</footer>
+          </div>
+        </div>
+      </main>
+      <!-- highlight support -->
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.1.0/build/styles/atom-one-light.min.css">
+
+
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.1.0/build/highlight.min.js"></script>
+ 
+<script>
+        hljs.initHighlightingOnLoad();
+</script>
+ 
+<!-- prettify support -->
+ 
+<!-- mathjax support -->
+
+    
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+
+<!-- fancybox support -->
+ 
+<!-- viewerjs support -->
+
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/viewerjs@1.10.0/dist/viewer.min.css">
+
+
+<script src="https://cdn.jsdelivr.net/npm/viewerjs@1.10.0/dist/viewer.min.js"></script>
+
+<script type="text/javascript">
+    Viewer.setDefaults({
+        zoomRatio: [0.5],
+        show: function () {
+            this.viewer.zoomTo(1);
+        },
+    });
+    
+    var imageList = document.querySelector('.post-content').getElementsByTagName('img');
+    
+    var imageArray = new Array();
+    Array.prototype.forEach.call(imageList, element => {
+        if (element.alt != "no-view" && element.className != "no-view") {
+            imageArray.push(element);
+        }
+    });
+    
+    Array.prototype.forEach.call(imageArray, element => {
+        var viewer1 = new Viewer(element);
+        viewer1.images = imageArray;
+        viewer1.length = imageArray.length;
+    });
+</script>
+ 
+<!-- google analytics support -->
+
+
+
+ 
+ 
+
+<!-- lazyload support -->
+
+    
+<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.4.0/dist/lazyload.min.js"></script>
+
+<script>
+    new LazyLoad({
+        elements_selector: '.post-content img'
+    });
+</script>
+ 
+  </body>
+
+</html>
