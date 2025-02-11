@@ -90,7 +90,51 @@
             </li>
         </ul>
         <div class="post-content" itemprop="articleBody">
-            <p>说起来其实早些时候加入了 <a href="osa.moe">开源技术协会</a>，所以对 Linux 也算有了一些了解。后来在暑假拥有了一台 Mac，也算是类 Unix 系统，所以用起来在命令行上熟悉的很快，而且 Mac 的访达（相当于文件资源管理器）也非常方便，所以这里就写一篇简单介绍我的 Mac 的工作流。</p>
+            <p><style></p>
+<h1 id="overlay"><a href="#overlay" class="headerlink" title="overlay {"></a>overlay {</h1><pre><code>position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.8);
+display: flex;
+align-items: center;
+justify-content: center;
+color: white;
+font-size: 24px;
+font-weight: bold;
+</code></pre><p>  }</p>
+<h1 id="password-input"><a href="#password-input" class="headerlink" title="password-input {"></a>password-input {</h1><pre><code>padding: 10px;
+margin-right: 10px;
+border: none;
+border-radius: 5px;
+font-size: 18px;
+</code></pre><p>  }</p>
+<p>  button {<br>    padding: 10px 20px;<br>    border: none;<br>    border-radius: 5px;<br>    background-color: white;<br>    color: black;<br>    font-size: 18px;<br>    cursor: pointer;<br>  }<br>&lt;/style&gt;</p>
+<script>
+    function checkPassword () {
+        var input = document.getElementById('password-input')
+        var overlay = document.getElementById('overlay')
+        var password = 'YinMo19'
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter') {
+                if (input.value === password) {
+                    overlay.style.display = 'none'
+                } else {
+                    input.value = ''
+                }
+            }
+        })
+    }
+</script>
+
+<div id="overlay">
+  <input type="password" id="password-input" placeholder="请输入密码">
+  <button onclick="checkPassword()">确定</button>
+</div>
+
+<p>说起来其实早些时候加入了 <a href="osa.moe">开源技术协会</a>，所以对 Linux 也算有了一些了解。后来在暑假拥有了一台 Mac，也算是类 Unix 系统，所以用起来在命令行上熟悉的很快，而且 Mac 的访达（相当于文件资源管理器）也非常方便，所以这里就写一篇简单介绍我的 Mac 的工作流。</p>
 <h1 id="一些有用的软件"><a href="#一些有用的软件" class="headerlink" title="一些有用的软件"></a>一些有用的软件</h1><p>拿到的第一件事其实是下载了 <code>MacTeX</code> ，也就是 <code>LaTeX</code> 的 Mac 版本。发觉 Mac 安装软件竟然如此简单，dmg 文件类似于 iso 镜像文件，会先挂载，然后我们在安装完成之后可以 unmount。但是有一些 dmg 文件已经做好了 ui 界面，只需要手动的同意同意就可以了。所以安装上没遇到任何困难。安装完成之后删除 dmg 文件，然后在命令行测试</p>
 <pre><code>➜  YinMo19_blog tex -v
 TeX 3.141592653 (TeX Live 2024)
