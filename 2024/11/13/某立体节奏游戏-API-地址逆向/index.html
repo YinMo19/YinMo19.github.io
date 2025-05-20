@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
     <title>
-        Arcaea API 地址逆向 - YinMo19's Blog 
+        某立体节奏游戏 API 地址逆向 - YinMo19's Blog 
     </title>
      
     
@@ -74,8 +74,8 @@
     <article class="post post-atpost" itemscope itemtype="http://schema.org/BlogPosting">
         <div class="post-title">
             <h1 class="post-title post-title-atpage" itemprop="name headline">
-                <a itemprop="url" href="/2024/11/13/Arcaea-API-%E5%9C%B0%E5%9D%80%E9%80%86%E5%90%91/">
-                    Arcaea API 地址逆向
+                <a itemprop="url" href="/2024/11/13/%E6%9F%90%E7%AB%8B%E4%BD%93%E8%8A%82%E5%A5%8F%E6%B8%B8%E6%88%8F-API-%E5%9C%B0%E5%9D%80%E9%80%86%E5%90%91/">
+                    某立体节奏游戏 API 地址逆向
                 </a>
             </h1>
         </div>
@@ -200,11 +200,11 @@ document.getElementById('passwordInput').addEventListener('keypress', (e) => {
 </script>
 
 
-<p>这篇文章是关于逆向游戏 ARCAEA 的，所以先来点…</p>
+<p>这篇文章是关于逆向某游戏的，所以先来点…</p>
 <blockquote>
 <p>本文所写内容仅供学习交流，作者对于读者所做的任何行为概不负责，如果跟着本文所写内容操作，您需要对自己的行为导致的任何后果负责！</p>
 </blockquote>
-<p>Ok. 总所周知，Arcaea 作为一个在线游戏（虽然只有登陆上传下载还有 LINK 的时候需要用到网络），那么必然存在一个服务器。而且在游戏本体中必然直接硬编码了一个游戏地址，否则游戏的数据就无法对着服务器发送。</p>
+<p>Ok. 总所周知，某3d立体节奏游戏作为一个在线游戏（虽然只有登陆上传下载还有 LINK 的时候需要用到网络），那么必然存在一个服务器。而且在游戏本体中必然直接硬编码了一个游戏地址，否则游戏的数据就无法对着服务器发送。</p>
 <p>在早期版本并没有对这个服务器地址进行什么操作，直接使用明文写在二进制中。但是在3.6.0左右进行了一次比较大的改动，对地址进行了加密。在4.5.0左右版本又对加密算法进行了一些小更新。因此本文主要关于逆向这个加密算法。</p>
 <p>之所以逆向这个服务器地址，当然是因为我们想要搭建一个自己的私服。所以在讲述这个过程之前先让我首先对 <a target="_blank" rel="noopener" href="https://github.com/Lost-MSth">Lost-MSth</a>大佬表示最深刻的敬意，是他手把手教我如何操作，并且给我很多支持（在这个过程中我犯的傻不计其数）。我的私服程序来源于他发布在 Github 上的 <a target="_blank" rel="noopener" href="https://github.com/Lost-MSth/Arcaea-Server">Arcaea-Server</a>。</p>
 <p>本文参考了</p>
@@ -215,7 +215,7 @@ document.getElementById('passwordInput').addEventListener('keypress', (e) => {
 <li><a target="_blank" rel="noopener" href="https://blog.lost-msth.cn/2023/02/01/android-debug-without-root.html">Android 无 ROOT 权限动态调试 (By Lost)</a></li>
 </ul>
 <h2 id="什么是私服，怎么搭建"><a href="#什么是私服，怎么搭建" class="headerlink" title="什么是私服，怎么搭建"></a>什么是私服，怎么搭建</h2><p>这个其实完全不应该由我来说，在 <a target="_blank" rel="noopener" href="https://github.com/Lost-MSth/Arcaea-Server">Arcaea-Server</a> 中已经有良好的文档，请一个字一个字阅读。这个仓库的 Wiki 可以说微言大义，错过了任何内容都是损失。</p>
-<p>但是我们想讲讲关于私服本身。下面是一张简单的结构图<br><img src="pic_1.jpg" alt="Arcaea初始结构"><br>这张图简单的展示了Arcaea的网络结构。客户端通过网络和官方服务器通信。这种通信基于 https,并且 Arcaea 还做了双端证书校验（一般的https服务仅仅校验服务器证书）防止被抓包。中间的技术细节就不展开。我们的目标是搭建一个自己的服务器，而让一个修改后的私服客户端和我们的服务器通信。可以想到的第一种方法是<br><img src="pic_2.png" alt="Arcaea proxy"><br>我们首先通过代理服务器来作为中间链接，然后让代理服务器劫持所有指向官方服务器的流量，然后将其转发，或者说重定向到你自己的服务器。<br><img src="pic_3.png" alt="Arcaea proxy2"><br>但是这种方法相当于每个人想要玩到你的服务器都需要这样做，不提这样做的实现是否真的可行，这样对于玩家显然一点也不友好。</p>
+<p>但是我们想讲讲关于私服本身。下面是一张简单的结构图<br><img src="pic_1.jpg" alt="Arcaea初始结构"><br>这张图简单的展示了其的网络结构。客户端通过网络和官方服务器通信。这种通信基于 https,并且这游戏还做了双端证书校验（一般的https服务仅仅校验服务器证书）防止被抓包。中间的技术细节就不展开。我们的目标是搭建一个自己的服务器，而让一个修改后的私服客户端和我们的服务器通信。可以想到的第一种方法是<br><img src="pic_2.png" alt="Arcaea proxy"><br>我们首先通过代理服务器来作为中间链接，然后让代理服务器劫持所有指向官方服务器的流量，然后将其转发，或者说重定向到你自己的服务器。<br><img src="pic_3.png" alt="Arcaea proxy2"><br>但是这种方法相当于每个人想要玩到你的服务器都需要这样做，不提这样做的实现是否真的可行，这样对于玩家显然一点也不友好。</p>
 <h2 id="那有没有什么做法干净又卫生呢？"><a href="#那有没有什么做法干净又卫生呢？" class="headerlink" title="那有没有什么做法干净又卫生呢？"></a>那有没有什么做法干净又卫生呢？</h2><p>那我们回到最开始的路径。<br><img src="pic_4.png" alt="Arcaea 2"><br>我们在开头提到过，既然要访问到官方服务器，那么一定在客户端写死了服务器的地址。那么有没有可能我们可以直接更改客户端来让客户端直接访问我们的服务器呢？<br><img src="pic_5.png" alt="Arcaea 3"><br>这就是本文的目的了。</p>
 <h2 id="关于修改地址"><a href="#关于修改地址" class="headerlink" title="关于修改地址"></a>关于修改地址</h2><p>首先我们要先来确定加密的方式和加密的位置。由于更高版本的客户端二进制中加入了更多的混淆，因此我们选一个比较好逆向的客户端。我选取的是4.5.x版本的一个客户端。首先我们通过 <code>apktool</code> 来将其拆开。我们需要更改的是其下的 <code>lib/armeabi-v7a/libcocos2dcpp.so</code> 文件。我们选取32位，它的逆向更简单，而且动态调试也更加简单。不要忘记删除 <code>lib/arm64-v8a/</code> 文件夹。否则手机会自动使用64位版本的二进制文件。</p>
 <blockquote>
@@ -241,7 +241,7 @@ for i in range(3):
     next_xor_key = get_next_xor_key(next_addr, next_xor_key)
 </code></pre>
 <p>现在我们有 <code>a^b = c, c^b = a^b^b = a</code> ，所以我们可以通过直接通过拿到内存中的 xor_key 和我们想要的地址直接计算出加密之后的地址。而加密的地址和密钥再 XOR 之后即可获取到解密的结果。算法具体请参照<a target="_blank" rel="noopener" href="https://bbs.kanxue.com/thread-273849.htm">看雪论坛：[原创] 某 iOS 遊戲抓包、修改</a>。</p>
-<h2 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h2><p>在现在 root 手机变得相对更加困难，更取决于手机厂商是否让root，而非是自己的技术。但是 Arcaea 并没有关于反 debug 的校验，所以我们只需要通过修改安装包，然后直接通过 <code>run-as</code> 命令来控制 debug 就可以实现无 root 权限调试。</p>
+<h2 id="动态调试"><a href="#动态调试" class="headerlink" title="动态调试"></a>动态调试</h2><p>在现在 root 手机变得相对更加困难，更取决于手机厂商是否让root，而非是自己的技术。但是这游戏并没有关于反 debug 的校验，所以我们只需要通过修改安装包，然后直接通过 <code>run-as</code> 命令来控制 debug 就可以实现无 root 权限调试。</p>
 <p>关于这一块的内容请阅读<a target="_blank" rel="noopener" href="https://blog.lost-msth.cn/2023/02/01/android-debug-without-root.html">Android 无 ROOT 权限动态调试 (By Lost)</a> 这里补充说明一下，在 ida 9.0 mac版本上的 <code>android_server</code> 无后缀是 64位的，有32后缀的是32位的，和教程中的不一样，需要注意。</p>
 <p>我们将更改好的软件传输到手机上安装云云…. (推荐直接使用 <code>adb push xxx.apk /storage/emulated/0/</code> 应该至少有30-40mb/s 速度) 然后将端口转发设置好，并启动ida的服务器。<br><img src="terminal_1.png" alt="terminal"><br>这里我没有演示如何传入服务器文件和chmod改777权限部分，还是请参照 Lost-MSth大佬的blog <a target="_blank" rel="noopener" href="https://blog.lost-msth.cn/2023/02/01/android-debug-without-root.html">Android 无 ROOT 权限动态调试 (By Lost)</a>。</p>
 <p>现在我们应该在哪里下断点呢？显然是<br><img src="ida_9.png" alt="ida9"><br>在while循环之前，while循环进行 xor 加密，在此之前刚好拿到上一次加密结束的密钥，我们可以直接对着我们想要的结果和密钥 xor 之后写入对应的内存，然后下一次加密就会使用这个新的地址计算下一次的 xor key。</p>
@@ -319,7 +319,7 @@ generate_patched_so(&quot;libcocos2dcpp.so&quot;, origin, replace_addr)
              
                 <blockquote>
                     <p>文章作者：<a href="/ "> YinMo19  </a></p>
-                    <p>文章链接：<a href="https://blog.yinmo19.top/2024/11/13/Arcaea-API-%E5%9C%B0%E5%9D%80%E9%80%86%E5%90%91/"> https://blog.yinmo19.top/2024/11/13/Arcaea-API-%E5%9C%B0%E5%9D%80%E9%80%86%E5%90%91/ </a></p>
+                    <p>文章链接：<a href="https://blog.yinmo19.top/2024/11/13/%E6%9F%90%E7%AB%8B%E4%BD%93%E8%8A%82%E5%A5%8F%E6%B8%B8%E6%88%8F-API-%E5%9C%B0%E5%9D%80%E9%80%86%E5%90%91/"> https://blog.yinmo19.top/2024/11/13/%E6%9F%90%E7%AB%8B%E4%BD%93%E8%8A%82%E5%A5%8F%E6%B8%B8%E6%88%8F-API-%E5%9C%B0%E5%9D%80%E9%80%86%E5%90%91/ </a></p>
                     <p>版权声明：除另有声明外，本博客文章均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"> CC BY-NC-SA 4.0 </a> 许可协议。转载请注明原作者与文章出处。</p>
                 </blockquote>
              
